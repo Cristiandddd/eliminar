@@ -1,0 +1,1349 @@
+{
+  "bimodal": {},
+  "unimodal": {
+    "0.2009": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999998255028237,
+        "clustering_media": 0.99999983125268,
+        "transitividad_media": 2.9999993721644085,
+        "camino_media": 1.0000001744971763,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 2547.9995849609377,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999743181214907,
+        "clustering_media": 0.9999743218965681,
+        "transitividad_media": 2.999923006693522,
+        "camino_media": 1.0000256818785094,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 2547.934537760417,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9977171355611082,
+        "clustering_media": 0.9977223464285015,
+        "transitividad_media": 2.993166979153951,
+        "camino_media": 1.002282864438892,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 2542.1832600911457,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9360668315972919,
+        "clustering_media": 0.9379129623375296,
+        "transitividad_media": 2.8136125167210895,
+        "camino_media": 1.0639331684027082,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 2385.0982747395833,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.5813051834488814,
+        "clustering_media": 0.6246837707731606,
+        "transitividad_media": 1.86147540807724,
+        "camino_media": 1.418694816551119,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1481.1656046549479,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.15037720130753812,
+        "clustering_media": 0.2691336254877047,
+        "transitividad_media": 0.7202331483364105,
+        "camino_media": 1.8496360604778475,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 383.1611083984375,
+        "n_componentes_media": 1.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.016389934674415983,
+        "clustering_media": 0.11640001956995935,
+        "transitividad_media": 0.21637697368860245,
+        "camino_media": 2.469145341265766,
+        "fraccion_giant_media": 0.9975153655028117,
+        "grado_medio": 41.76155351003011,
+        "n_componentes_media": 7.333333333333333
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0009947468138355323,
+        "clustering_media": 0.031289720633736,
+        "transitividad_media": 0.06223814152181149,
+        "camino_media": 4.247735196615508,
+        "fraccion_giant_media": 0.5310448541911861,
+        "grado_medio": 2.534614888827006,
+        "n_componentes_media": 1189.5333333333333
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 3.95287426616239e-05,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 3.844784329080108,
+        "fraccion_giant_media": 0.007623904799267688,
+        "grado_medio": 0.10071923645834129,
+        "n_componentes_media": 2420.8333333333335
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 1.0675121362785992e-06,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.0238095238095237,
+        "fraccion_giant_media": 0.0007584673728259448,
+        "grado_medio": 0.0027200208666423955,
+        "n_componentes_media": 2545.5333333333333
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 1.0264539771909608e-08,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.0,
+        "fraccion_giant_media": 2.6154047338825684e-05,
+        "grado_medio": 2.6154046645388006e-05,
+        "n_componentes_media": 2548.9666666666667
+      }
+    },
+    "1.9922": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9942039559014266,
+        "clustering_media": 0.9943862372644526,
+        "transitividad_media": 2.9831372419993083,
+        "camino_media": 1.0057960440985734,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 254.5162134806315,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9523275372892347,
+        "clustering_media": 0.9581200507673616,
+        "transitividad_media": 2.87272842725118,
+        "camino_media": 1.0476724627107652,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 243.7958491007487,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.803730950064851,
+        "clustering_media": 0.8547957421431437,
+        "transitividad_media": 2.5356285492579143,
+        "camino_media": 1.1962690499351492,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 205.75512237548827,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.5403118920233463,
+        "clustering_media": 0.7143854271654333,
+        "transitividad_media": 1.9910032510757447,
+        "camino_media": 1.4596941877431904,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 138.3198440551758,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.2768026507782101,
+        "clustering_media": 0.5949535489437761,
+        "transitividad_media": 1.4091786424318948,
+        "camino_media": 1.7285131235535718,
+        "fraccion_giant_media": 0.9994811932555123,
+        "grado_medio": 70.86147842407226,
+        "n_componentes_media": 1.1333333333333333
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.10976815823605705,
+        "clustering_media": 0.4952626459129238,
+        "transitividad_media": 0.9332984904448192,
+        "camino_media": 2.02585625147734,
+        "fraccion_giant_media": 0.9766536964980546,
+        "grado_medio": 28.10064843495687,
+        "n_componentes_media": 7.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.034220979247730224,
+        "clustering_media": 0.35449206815279055,
+        "transitividad_media": 0.5886369029680888,
+        "camino_media": 2.4624803099227064,
+        "fraccion_giant_media": 0.8038910505836578,
+        "grado_medio": 8.76057071685791,
+        "n_componentes_media": 51.4
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.008683933203631646,
+        "clustering_media": 0.20365930629318957,
+        "transitividad_media": 0.3602666616439819,
+        "camino_media": 3.065666828931627,
+        "fraccion_giant_media": 0.47756160830090794,
+        "grado_medio": 2.2230868697166444,
+        "n_componentes_media": 134.66666666666666
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0017590791180285346,
+        "clustering_media": 0.0067894904493535834,
+        "transitividad_media": 0.009594095746676128,
+        "camino_media": 3.7624802350791615,
+        "fraccion_giant_media": 0.15979247730220494,
+        "grado_medio": 0.4503242428104083,
+        "n_componentes_media": 210.3
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0002837224383916991,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.8211081511081513,
+        "fraccion_giant_media": 0.023216601815823603,
+        "grado_medio": 0.07263294250393908,
+        "n_componentes_media": 247.76666666666668
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 4.154507133592736e-05,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.0629629629629629,
+        "fraccion_giant_media": 0.005188067444876783,
+        "grado_medio": 0.010635538150866826,
+        "n_componentes_media": 255.63333333333333
+      }
+    },
+    "0.9981": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9994230730181937,
+        "clustering_media": 0.9994259201837408,
+        "transitividad_media": 2.9982776403427125,
+        "camino_media": 1.0005769269818061,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 511.70461018880206,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9909930352501625,
+        "clustering_media": 0.9913269220233506,
+        "transitividad_media": 2.9739457527796427,
+        "camino_media": 1.0090069647498376,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 507.3884348551432,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.933496537930474,
+        "clustering_media": 0.9424007633740905,
+        "transitividad_media": 2.824511416753133,
+        "camino_media": 1.066503462069526,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 477.9502268473307,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.7552882858187135,
+        "clustering_media": 0.8203465492714528,
+        "transitividad_media": 2.4231513500213624,
+        "camino_media": 1.2447117141812865,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 386.7076029459635,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.47730313921377515,
+        "clustering_media": 0.6655928644617322,
+        "transitividad_media": 1.8367350737253825,
+        "camino_media": 1.5227026985867447,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 244.37920633951822,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.22647950170565304,
+        "clustering_media": 0.5264408738161304,
+        "transitividad_media": 1.2527021328608194,
+        "camino_media": 1.781989151575508,
+        "fraccion_giant_media": 0.999545159194282,
+        "grado_medio": 115.95750376383464,
+        "n_componentes_media": 1.2333333333333334
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.08099719785575049,
+        "clustering_media": 0.3939361585435071,
+        "transitividad_media": 0.7831195970376332,
+        "camino_media": 2.0943342064838166,
+        "fraccion_giant_media": 0.9673164392462635,
+        "grado_medio": 41.47056554158529,
+        "n_componentes_media": 17.766666666666666
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.021878299626380767,
+        "clustering_media": 0.23252737492298867,
+        "transitividad_media": 0.4434323896964391,
+        "camino_media": 2.574681319751306,
+        "fraccion_giant_media": 0.7842755035737494,
+        "grado_medio": 11.20168940226237,
+        "n_componentes_media": 111.66666666666667
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.004275300519818064,
+        "clustering_media": 0.10764353450278212,
+        "transitividad_media": 0.2163691411415736,
+        "camino_media": 3.5347407749261204,
+        "fraccion_giant_media": 0.4838206627680312,
+        "grado_medio": 2.1889538685480754,
+        "n_componentes_media": 264.23333333333335
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0006089079759584146,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 4.86139126506234,
+        "fraccion_giant_media": 0.09694606887589344,
+        "grado_medio": 0.3117608815431595,
+        "n_componentes_media": 438.26666666666665
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 5.88856400259909e-05,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.352222222222222,
+        "fraccion_giant_media": 0.006432748538011695,
+        "grado_medio": 0.03014944791793823,
+        "n_componentes_media": 505.26666666666665
+      }
+    },
+    "0.4995": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999702743902438,
+        "clustering_media": 0.9999702837932404,
+        "transitividad_media": 2.9999109586079915,
+        "camino_media": 1.0000297256097561,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1023.9695556640625,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9990159425813008,
+        "clustering_media": 0.9990197271680444,
+        "transitividad_media": 2.9970590432484943,
+        "camino_media": 1.0009840574186992,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1022.9923299153646,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9834428353658536,
+        "clustering_media": 0.9840267522179982,
+        "transitividad_media": 2.95202001730601,
+        "camino_media": 1.0165571646341462,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1007.0454610188802,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.8847345020325205,
+        "clustering_media": 0.8999339814127943,
+        "transitividad_media": 2.694775366783142,
+        "camino_media": 1.1152654979674794,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 905.9681315104167,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.6309791666666666,
+        "clustering_media": 0.7200240631374886,
+        "transitividad_media": 2.1085794528325397,
+        "camino_media": 1.3690208333333334,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 646.1226664225261,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.32156580284552844,
+        "clustering_media": 0.509954658766103,
+        "transitividad_media": 1.390724500020345,
+        "camino_media": 1.6786370680894307,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 329.28338216145835,
+        "n_componentes_media": 1.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.11287449186991871,
+        "clustering_media": 0.31655469146096443,
+        "transitividad_media": 0.7674981812636058,
+        "camino_media": 1.9612831463925482,
+        "fraccion_giant_media": 0.9959349593495935,
+        "grado_medio": 115.58347905476889,
+        "n_componentes_media": 5.166666666666667
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.026591145833333333,
+        "clustering_media": 0.14634561047026357,
+        "transitividad_media": 0.3418699304262797,
+        "camino_media": 2.4247417836759313,
+        "fraccion_giant_media": 0.8823414634146343,
+        "grado_medio": 27.22933349609375,
+        "n_componentes_media": 121.6
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.003953442581300813,
+        "clustering_media": 0.049992732878355706,
+        "transitividad_media": 0.12152712022264799,
+        "camino_media": 3.662860063224538,
+        "fraccion_giant_media": 0.6567479674796748,
+        "grado_medio": 4.048325220743815,
+        "n_componentes_media": 351.4
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0003584222560975611,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 6.3067024770534195,
+        "fraccion_giant_media": 0.08442276422764229,
+        "grado_medio": 0.36702438990275066,
+        "n_componentes_media": 843.2333333333333
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 1.810213414634147e-05,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.248888888888889,
+        "fraccion_giant_media": 0.002764227642276423,
+        "grado_medio": 0.018536585258940856,
+        "n_componentes_media": 1015.5
+      }
+    },
+    "0.4503": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999797671989133,
+        "clustering_media": 0.9999797786498342,
+        "transitividad_media": 2.9999393622080484,
+        "camino_media": 1.0000202328010868,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1135.9770141601562,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9993226140779006,
+        "clustering_media": 0.9993240311641352,
+        "transitividad_media": 2.9979720671971637,
+        "camino_media": 1.0006773859220996,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1135.2304728190104,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9870151869882442,
+        "clustering_media": 0.9873450392835897,
+        "transitividad_media": 2.9620088497797648,
+        "camino_media": 1.0129848130117558,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1121.2492635091146,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.8985713164946879,
+        "clustering_media": 0.909898243237716,
+        "transitividad_media": 2.7263993501663206,
+        "camino_media": 1.101428683505312,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1020.777022298177,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.6505092781844984,
+        "clustering_media": 0.7273167351200167,
+        "transitividad_media": 2.1409684658050536,
+        "camino_media": 1.3494907218155017,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 738.9785441080729,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.33331712644674855,
+        "clustering_media": 0.5049587678032095,
+        "transitividad_media": 1.3976787527402241,
+        "camino_media": 1.6667598820716736,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 378.64825541178385,
+        "n_componentes_media": 1.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.1156626139127347,
+        "clustering_media": 0.30117358102482794,
+        "transitividad_media": 0.7490769068400065,
+        "camino_media": 1.9489811028112025,
+        "fraccion_giant_media": 0.9974201114042801,
+        "grado_medio": 131.39272969563802,
+        "n_componentes_media": 3.933333333333333
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.026142740347095763,
+        "clustering_media": 0.1312329807858277,
+        "transitividad_media": 0.3139875143766403,
+        "camino_media": 2.4213827487615385,
+        "fraccion_giant_media": 0.8932571093520962,
+        "grado_medio": 29.69815311431885,
+        "n_componentes_media": 122.36666666666666
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0036370524525045312,
+        "clustering_media": 0.03964731135499956,
+        "transitividad_media": 0.10230493744214376,
+        "camino_media": 3.7473349890509184,
+        "fraccion_giant_media": 0.6760480797420113,
+        "grado_medio": 4.131691575050354,
+        "n_componentes_media": 367.6666666666667
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0002906916727571527,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 6.006753209815666,
+        "fraccion_giant_media": 0.05699208443271767,
+        "grado_medio": 0.3302257398764292,
+        "n_componentes_media": 952.1333333333333
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 1.4090700756871925e-05,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.14367816091954,
+        "fraccion_giant_media": 0.002081501026092055,
+        "grado_medio": 0.016007036187996468,
+        "n_componentes_media": 1127.9
+      }
+    },
+    "0.3923": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999921647901339,
+        "clustering_media": 0.999992166427208,
+        "transitividad_media": 2.9999765078226726,
+        "camino_media": 1.0000078352098662,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1303.9897745768228,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9996406380994916,
+        "clustering_media": 0.9996408810164888,
+        "transitividad_media": 2.9989226261774697,
+        "camino_media": 1.0003593619005084,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1303.5313842773437,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9914202101403287,
+        "clustering_media": 0.9915277575730973,
+        "transitividad_media": 2.974578102429708,
+        "camino_media": 1.0085797898596713,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1292.811962890625,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9176371357606813,
+        "clustering_media": 0.9241081144191603,
+        "transitividad_media": 2.7708587408065797,
+        "camino_media": 1.0823628642393186,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1196.5988240559896,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.6769859122926608,
+        "clustering_media": 0.7356673853698819,
+        "transitividad_media": 2.1797119617462157,
+        "camino_media": 1.3230140877073393,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 882.7896301269532,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.3459264743906166,
+        "clustering_media": 0.49026769820148774,
+        "transitividad_media": 1.3853155930836996,
+        "camino_media": 1.6540876289871422,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 451.08812662760414,
+        "n_componentes_media": 1.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.11541044746883546,
+        "clustering_media": 0.2670792809602912,
+        "transitividad_media": 0.6936730106671651,
+        "camino_media": 1.9403459014296265,
+        "fraccion_giant_media": 0.9987228607918264,
+        "grado_medio": 150.49522298177084,
+        "n_componentes_media": 2.6666666666666665
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.024033879447461003,
+        "clustering_media": 0.10145458893136701,
+        "transitividad_media": 0.26028068363666534,
+        "camino_media": 2.4390077245101396,
+        "fraccion_giant_media": 0.9005874840357598,
+        "grado_medio": 31.340178807576496,
+        "n_componentes_media": 130.73333333333332
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0029134836126585646,
+        "clustering_media": 0.026975580437824925,
+        "transitividad_media": 0.07064709489544233,
+        "camino_media": 4.080937919561061,
+        "fraccion_giant_media": 0.694712643678161,
+        "grado_medio": 3.799182637532552,
+        "n_componentes_media": 397.3666666666667
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 0.00019325545134726434,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 3.6906074695099798,
+        "fraccion_giant_media": 0.01777777777777778,
+        "grado_medio": 0.25200510770082474,
+        "n_componentes_media": 1140.9666666666667
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 7.4826254221219315e-06,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.0714285714285714,
+        "fraccion_giant_media": 0.0015836526181353767,
+        "grado_medio": 0.009757343446835876,
+        "n_componentes_media": 1298.6333333333334
+      }
+    },
+    "0.3644": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999954037439213,
+        "clustering_media": 0.9999954130245131,
+        "transitividad_media": 2.9999863227208454,
+        "camino_media": 1.000004596256079,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1403.993546549479,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9997606567238833,
+        "clustering_media": 0.9997607301265744,
+        "transitividad_media": 2.999282153447469,
+        "camino_media": 1.0002393432761167,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1403.6639689127603,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.99339882998246,
+        "clustering_media": 0.9934481924015716,
+        "transitividad_media": 2.980342960357666,
+        "camino_media": 1.0066011700175401,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1394.7319580078124,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.927031325512939,
+        "clustering_media": 0.9313716199743083,
+        "transitividad_media": 2.793304165204366,
+        "camino_media": 1.072968674487061,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1301.5519856770834,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.6874268739037422,
+        "clustering_media": 0.7364741919317843,
+        "transitividad_media": 2.1885160207748413,
+        "camino_media": 1.3125731260962576,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 965.1473327636719,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.34484083773526236,
+        "clustering_media": 0.4745938158381735,
+        "transitividad_media": 1.351940139134725,
+        "camino_media": 1.6551658200768524,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 484.1565338134766,
+        "n_componentes_media": 1.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.10992997468679554,
+        "clustering_media": 0.24412738681245152,
+        "transitividad_media": 0.6441273272037507,
+        "camino_media": 1.9455804219771662,
+        "fraccion_giant_media": 0.9995017793594305,
+        "grado_medio": 154.34168446858723,
+        "n_componentes_media": 1.7
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.021386582311849214,
+        "clustering_media": 0.0851227586607833,
+        "transitividad_media": 0.22333470831314722,
+        "camino_media": 2.492133435203172,
+        "fraccion_giant_media": 0.9022064056939503,
+        "grado_medio": 30.026761754353842,
+        "n_componentes_media": 138.4
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.002333343472133508,
+        "clustering_media": 0.019039919507767695,
+        "transitividad_media": 0.056593005855878196,
+        "camino_media": 4.447938800242773,
+        "fraccion_giant_media": 0.6806405693950178,
+        "grado_medio": 3.276014232635498,
+        "n_componentes_media": 446.2
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 0.00013332522229319384,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 2.723983090897478,
+        "fraccion_giant_media": 0.007283511269276393,
+        "grado_medio": 0.18718861291805902,
+        "n_componentes_media": 1273.5333333333333
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 4.8328280831246435e-06,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.057471264367816,
+        "fraccion_giant_media": 0.0014946619217081852,
+        "grado_medio": 0.006785290746483952,
+        "n_componentes_media": 1400.2333333333333
+      }
+    },
+    "0.3402": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999969074715487,
+        "clustering_media": 0.999996898714226,
+        "transitividad_media": 2.9999906698862713,
+        "camino_media": 1.0000030925284515,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1503.9953328450522,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9998310301359535,
+        "clustering_media": 0.999831064938179,
+        "transitividad_media": 2.99949320157369,
+        "camino_media": 1.0001689698640464,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1503.745869954427,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9947481798261114,
+        "clustering_media": 0.9947709552803441,
+        "transitividad_media": 2.984312351544698,
+        "camino_media": 1.0052518201738885,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1496.1012736002604,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9329772507716594,
+        "clustering_media": 0.9358428437567233,
+        "transitividad_media": 2.8071170409520465,
+        "camino_media": 1.0670227492283404,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1403.1977823893228,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.6844384262859028,
+        "clustering_media": 0.7267949609780234,
+        "transitividad_media": 2.163743734359741,
+        "camino_media": 1.315561573714097,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1029.395381673177,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.3255935592940789,
+        "clustering_media": 0.44859219911618625,
+        "transitividad_media": 1.2755911469459533,
+        "camino_media": 1.6744081195070808,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 489.6927124023438,
+        "n_componentes_media": 1.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.09554867345255766,
+        "clustering_media": 0.22228330858552284,
+        "transitividad_media": 0.5779332021872202,
+        "camino_media": 1.9684291415061703,
+        "fraccion_giant_media": 0.9996013289036547,
+        "grado_medio": 143.70520451863607,
+        "n_componentes_media": 1.6
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0169433743314248,
+        "clustering_media": 0.07401139711312896,
+        "transitividad_media": 0.19059847593307494,
+        "camino_media": 2.6283299078822044,
+        "fraccion_giant_media": 0.8914285714285713,
+        "grado_medio": 25.482834974924724,
+        "n_componentes_media": 164.4
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0017005666690228791,
+        "clustering_media": 0.015822679647781064,
+        "transitividad_media": 0.0464638601988554,
+        "camino_media": 5.119432666900222,
+        "fraccion_giant_media": 0.6121373200442968,
+        "grado_medio": 2.557652270793915,
+        "n_componentes_media": 575.7333333333333
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 9.083197851134515e-05,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 2.418011988011988,
+        "fraccion_giant_media": 0.005559246954595792,
+        "grado_medio": 0.13661129511892794,
+        "n_componentes_media": 1402.2
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 2.1500435899248374e-06,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.0,
+        "fraccion_giant_media": 0.0011517165005537097,
+        "grado_medio": 0.003233665534450362,
+        "n_componentes_media": 1502.5666666666666
+      }
+    },
+    "0.3293": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999979584545501,
+        "clustering_media": 0.9999979502147929,
+        "transitividad_media": 2.9999940077463787,
+        "camino_media": 1.0000020415454498,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1553.9968098958334,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.999869451445014,
+        "clustering_media": 0.9998694738058925,
+        "transitividad_media": 2.9996084054311116,
+        "camino_media": 1.0001305485549858,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1553.7971232096354,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9955311673639647,
+        "clustering_media": 0.9955454498369722,
+        "transitividad_media": 2.986636209487915,
+        "camino_media": 1.0044688326360351,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1547.0554280598958,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9347326472085317,
+        "clustering_media": 0.9370475600744493,
+        "transitividad_media": 2.8108747243881225,
+        "camino_media": 1.0652673527914684,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1452.5745279947917,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.6689205328433624,
+        "clustering_media": 0.7102163035271634,
+        "transitividad_media": 2.114880641301473,
+        "camino_media": 1.3310794671566377,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1039.5025166829428,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.29317751375629186,
+        "clustering_media": 0.4188904179892995,
+        "transitividad_media": 1.17766392827034,
+        "camino_media": 1.7068232035434607,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 455.5978546142578,
+        "n_componentes_media": 1.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.07644401406459284,
+        "clustering_media": 0.20339465913292756,
+        "transitividad_media": 0.509258829553922,
+        "camino_media": 2.0163299011963987,
+        "fraccion_giant_media": 0.9996570203644158,
+        "grado_medio": 118.79399770100912,
+        "n_componentes_media": 1.5333333333333334
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.012033448239236022,
+        "clustering_media": 0.06640403680155071,
+        "transitividad_media": 0.1637274742126465,
+        "camino_media": 2.8228498734590226,
+        "fraccion_giant_media": 0.8612647374062163,
+        "grado_medio": 18.699978669484455,
+        "n_componentes_media": 216.73333333333332
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0010917854004670725,
+        "clustering_media": 0.011097619152732644,
+        "transitividad_media": 0.031609297295411426,
+        "camino_media": 6.0101275849373605,
+        "fraccion_giant_media": 0.48878885316184356,
+        "grado_medio": 1.6966345191001893,
+        "n_componentes_media": 771.8
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 5.376989299818882e-05,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.7520105820105816,
+        "fraccion_giant_media": 0.0030010718113612006,
+        "grado_medio": 0.08355841375887393,
+        "n_componentes_media": 1490.0333333333333
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 1.5449533134420595e-06,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.0133333333333332,
+        "fraccion_giant_media": 0.0010932475884244373,
+        "grado_medio": 0.002400857380901774,
+        "n_componentes_media": 1553.1333333333334
+      }
+    },
+    "0.3202": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999981214792408,
+        "clustering_media": 0.999998128773248,
+        "transitividad_media": 2.999994389216105,
+        "camino_media": 1.0000018785207587,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1597.9970092773438,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9998815488299295,
+        "clustering_media": 0.9998815657596973,
+        "transitividad_media": 2.999644740422567,
+        "camino_media": 1.0001184511700705,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1597.8107299804688,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9957290265114069,
+        "clustering_media": 0.9957419577839227,
+        "transitividad_media": 2.987225619951884,
+        "camino_media": 1.0042709734885933,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1591.1749837239583,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9352466067262003,
+        "clustering_media": 0.9374232138473092,
+        "transitividad_media": 2.8120407899220785,
+        "camino_media": 1.0647533932737998,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1494.5240763346353,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.6642610903821564,
+        "clustering_media": 0.7049617683897421,
+        "transitividad_media": 2.0997400482495627,
+        "camino_media": 1.3357389096178438,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1061.4892313639323,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.28341326178256493,
+        "clustering_media": 0.4090520018447258,
+        "transitividad_media": 1.1464727958043417,
+        "camino_media": 1.7165876774778148,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 452.89439188639324,
+        "n_componentes_media": 1.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0713054388654987,
+        "clustering_media": 0.19797299666640822,
+        "transitividad_media": 0.487847172220548,
+        "camino_media": 2.0349456393205103,
+        "fraccion_giant_media": 0.9997706900145926,
+        "grado_medio": 113.94609044392904,
+        "n_componentes_media": 1.3666666666666667
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.010921850144659144,
+        "clustering_media": 0.06355244176225712,
+        "transitividad_media": 0.15693201447526614,
+        "camino_media": 2.8914519737036954,
+        "fraccion_giant_media": 0.8498853450072962,
+        "grado_medio": 17.45311649640401,
+        "n_componentes_media": 240.93333333333334
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0009614373605948441,
+        "clustering_media": 0.010496681094002131,
+        "transitividad_media": 0.02770962715148926,
+        "camino_media": 6.399637783343982,
+        "fraccion_giant_media": 0.4543256201792787,
+        "grado_medio": 1.5363768955071768,
+        "n_componentes_media": 847.3666666666667
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 4.5606309533779843e-05,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.7215560365560365,
+        "fraccion_giant_media": 0.0029601834479883256,
+        "grado_medio": 0.07287888303399086,
+        "n_componentes_media": 1540.7333333333333
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 8.609886811297113e-07,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.0196078431372548,
+        "fraccion_giant_media": 0.0007296226808421927,
+        "grado_medio": 0.0013758598904435833,
+        "n_componentes_media": 1597.9
+      }
+    },
+    "0.2992": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999985189286617,
+        "clustering_media": 0.9999985314776458,
+        "transitividad_media": 2.9999952634175617,
+        "camino_media": 1.0000014810713382,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1709.9974568684895,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999125940053066,
+        "clustering_media": 0.999912606506303,
+        "transitividad_media": 2.9997376839319867,
+        "camino_media": 1.0000874059946934,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1709.8505289713542,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9963194237948921,
+        "clustering_media": 0.9963292420177507,
+        "transitividad_media": 2.988987588882446,
+        "camino_media": 1.003680576205108,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1703.7062174479167,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9353459269968543,
+        "clustering_media": 0.9373385441853663,
+        "transitividad_media": 2.81183823744456,
+        "camino_media": 1.0646540730031457,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1599.4415283203125,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.6428722530398989,
+        "clustering_media": 0.6846207740465707,
+        "transitividad_media": 2.038780121008555,
+        "camino_media": 1.3571277469601013,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1099.3115559895834,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.24567341465554265,
+        "clustering_media": 0.37628043376340436,
+        "transitividad_media": 1.0371420780817668,
+        "camino_media": 1.754328089201509,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 420.1015370686849,
+        "n_componentes_media": 1.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.052017800198919266,
+        "clustering_media": 0.18048768911096152,
+        "transitividad_media": 0.4171549419562022,
+        "camino_media": 2.1014354332096046,
+        "fraccion_giant_media": 0.9997077732320282,
+        "grado_medio": 88.95043830871582,
+        "n_componentes_media": 1.5
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.006626654954810235,
+        "clustering_media": 0.058234667713636896,
+        "transitividad_media": 0.13348490223288537,
+        "camino_media": 3.1240829464964768,
+        "fraccion_giant_media": 0.8051431911163063,
+        "grado_medio": 11.331580066680909,
+        "n_componentes_media": 334.26666666666665
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.0004940398271475819,
+        "clustering_media": 0.003994827204508852,
+        "transitividad_media": 0.011067536907891433,
+        "camino_media": 7.9446024484236855,
+        "fraccion_giant_media": 0.3068186245860121,
+        "grado_medio": 0.8448080976804098,
+        "n_componentes_media": 1133.6333333333334
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 1.9823570224997527e-05,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.4585714285714286,
+        "fraccion_giant_media": 0.0020650691603350865,
+        "grado_medio": 0.033898305132364234,
+        "n_componentes_media": 1682.0
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 5.46857109655104e-07,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.0222222222222224,
+        "fraccion_giant_media": 0.0006039353204753555,
+        "grado_medio": 0.0009351256381099422,
+        "n_componentes_media": 1710.2
+      }
+    },
+    "0.2499": {
+      "0.2": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999996346032617,
+        "clustering_media": 0.9999996347816781,
+        "transitividad_media": 2.999998903274536,
+        "camino_media": 1.0000003653967382,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 2047.9992513020834,
+        "n_componentes_media": 1.0
+      },
+      "0.21": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9999550720880104,
+        "clustering_media": 0.9999550955914589,
+        "transitividad_media": 2.9998653809229534,
+        "camino_media": 1.0000449279119896,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 2047.9079467773438,
+        "n_componentes_media": 1.0
+      },
+      "0.22": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9971496830262728,
+        "clustering_media": 0.9971567357296244,
+        "transitividad_media": 2.9914701064427693,
+        "camino_media": 1.002850316973727,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 2042.1625528971354,
+        "n_componentes_media": 1.0
+      },
+      "0.23": {
+        "n_analizadas": 30,
+        "densidad_media": 0.9352403389102408,
+        "clustering_media": 0.9371420390822739,
+        "transitividad_media": 2.8112841844558716,
+        "camino_media": 1.0647596610897592,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1915.372224934896,
+        "n_componentes_media": 1.0
+      },
+      "0.24": {
+        "n_analizadas": 30,
+        "densidad_media": 0.605939126809826,
+        "clustering_media": 0.6492727687519044,
+        "transitividad_media": 1.933712363243103,
+        "camino_media": 1.394060873190174,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 1240.963330078125,
+        "n_componentes_media": 1.0
+      },
+      "0.25": {
+        "n_analizadas": 30,
+        "densidad_media": 0.1873238311117212,
+        "clustering_media": 0.3160273004937157,
+        "transitividad_media": 0.8519204994042714,
+        "camino_media": 1.8126813638766877,
+        "fraccion_giant_media": 1.0,
+        "grado_medio": 383.6392059326172,
+        "n_componentes_media": 1.0
+      },
+      "0.26": {
+        "n_analizadas": 30,
+        "densidad_media": 0.028221814248820563,
+        "clustering_media": 0.1460984331585589,
+        "transitividad_media": 0.2989108105500539,
+        "camino_media": 2.284423655953099,
+        "fraccion_giant_media": 0.9988612331218482,
+        "grado_medio": 57.79827562967936,
+        "n_componentes_media": 3.3333333333333335
+      },
+      "0.27": {
+        "n_analizadas": 30,
+        "densidad_media": 0.002478041244712868,
+        "clustering_media": 0.04330327348205022,
+        "transitividad_media": 0.09225329036513964,
+        "camino_media": 3.653180849671363,
+        "fraccion_giant_media": 0.6683422807873759,
+        "grado_medio": 5.075028498967488,
+        "n_componentes_media": 679.3666666666667
+      },
+      "0.28": {
+        "n_analizadas": 30,
+        "densidad_media": 0.00013583226573938507,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 7.592467540289059,
+        "fraccion_giant_media": 0.06165609240279812,
+        "grado_medio": 0.27818447997172674,
+        "n_componentes_media": 1770.5
+      },
+      "0.29": {
+        "n_analizadas": 30,
+        "densidad_media": 3.7810619001138768e-06,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.1666666666666667,
+        "fraccion_giant_media": 0.0012201073694485115,
+        "grado_medio": 0.007743614648158352,
+        "n_componentes_media": 2041.0666666666666
+      },
+      "0.3": {
+        "n_analizadas": 30,
+        "densidad_media": 7.943407353180414e-08,
+        "clustering_media": 0.0,
+        "transitividad_media": 0.0,
+        "camino_media": 1.0,
+        "fraccion_giant_media": 0.0001301447860745079,
+        "grado_medio": 0.00016268098261207342,
+        "n_componentes_media": 2048.8333333333335
+      }
+    }
+  }
+}
