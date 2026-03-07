@@ -99,20 +99,49 @@ ax4.set_ylabel('α')
 ax4.set_title('Valores de α analizados')
 ax4.tick_params(axis='x', rotation=45)
 
-# Subplot 5: Boxplot de densidades (opcional)
+# ======================================================================
+# SUBPLOT 5 - CORREGIDO (puntos con error bars en lugar de boxplot)
+# ======================================================================
 ax5 = plt.subplot(2, 3, 5)
-densidades_todos = []
+alphas_con_datos = []
+medias = []
+errores = []
+
 for alpha_str in alphas:
     if '0.24' in data['unimodal'][alpha_str]:
-        densidades_todos.append(data['unimodal'][alpha_str]['0.24']['densidad_media'])
+        alphas_con_datos.append(float(alpha_str))
+        medias.append(data['unimodal'][alpha_str]['0.24']['densidad_media'])
+        errores.append(data['unimodal'][alpha_str]['0.24'].get('densidad_std', 0))
 
-if densidades_todos:
-    ax5.boxplot(densidades_todos)
-    ax5.set_xticklabels([f'{float(a):.2f}' for a in alphas])
-    ax5.set_xlabel('α')
-    ax5.set_ylabel('Densidad en θ=0.24')
-    ax5.set_title('Distribución de densidades')
-    ax5.tick_params(axis='x', rotation=45)
+if alphas_con_datos:
+    ax5.errorbar(alphas_con_datos, medias, yerr=errores, 
+                 fmt='o-', color='blue', capsize=5, 
+                 markersize=8, linewidth=2, label='Unimodal')
+    
+    # Si hay bimodales, agregarlos también
+    if 'bimodal' in data:
+        alphas_bi = []
+        medias_bi = []
+        errores_bi = []
+        for alpha_str in alphas:
+            if alpha_str in data['bimodal'] and '0.24' in data['bimodal'][alpha_str]:
+                alphas_bi.append(float(alpha_str))
+                medias_bi.append(data['bimodal'][alpha_str]['0.24']['densidad_media'])
+                errores_bi.append(data['bimodal'][alpha_str]['0.24'].get('densidad_std', 0))
+        
+        if alphas_bi:
+            ax5.errorbar(alphas_bi, medias_bi, yerr=errores_bi, 
+                        fmt='s-', color='red', capsize=5, 
+                        markersize=8, linewidth=2, label='Bimodal')
+    
+    ax5.legend()
+
+ax5.set_xlabel('α')
+ax5.set_ylabel('Densidad en θ=0.24')
+ax5.set_title('Densidades por α (con error)')
+ax5.set_xscale('log')
+ax5.grid(True, alpha=0.3)
+# ======================================================================
 
 # Subplot 6: Reservado para bimodales si existen
 ax6 = plt.subplot(2, 3, 6)
@@ -217,33 +246,47 @@ plt.savefig('densidad_en_theta_024_vs_alpha.png', dpi=300, bbox_inches='tight')
 print("\n✅ Gráfica guardada: densidad_en_theta_024_vs_alpha.png")
 
 # ------------------------------------------------------------------
-# GRÁFICA 4: Boxplot de densidades por α (por separado)
+# GRÁFICA 4: Densidades por α con error bars (versión separada)
 # ------------------------------------------------------------------
 plt.figure(figsize=(12, 6))
 
-datos_boxplot = []
-etiquetas = []
+alphas_num = []
+medias = []
+errores = []
 
 for alpha_str in alphas:
-    if '0.24' in data['unimodal'][alpha_str] and 'n' in data['unimodal'][alpha_str]['0.24']:
-        # Necesitamos los valores individuales, no solo la media
-        # Si no están disponibles, usamos la media con un marcador
-        pass
-
-# Versión simplificada: puntos con medias
-for i, alpha_str in enumerate(alphas):
     if '0.24' in data['unimodal'][alpha_str]:
-        plt.scatter(i, data['unimodal'][alpha_str]['0.24']['densidad_media'], 
-                   color='blue', s=100, zorder=5)
-        plt.errorbar(i, data['unimodal'][alpha_str]['0.24']['densidad_media'],
-                    yerr=data['unimodal'][alpha_str]['0.24'].get('densidad_std', 0),
-                    color='blue', capsize=5)
+        alphas_num.append(float(alpha_str))
+        medias.append(data['unimodal'][alpha_str]['0.24']['densidad_media'])
+        errores.append(data['unimodal'][alpha_str]['0.24'].get('densidad_std', 0))
 
-plt.xticks(range(len(alphas)), [f'{float(a):.2f}' for a in alphas], rotation=45)
+if alphas_num:
+    plt.errorbar(alphas_num, medias, yerr=errores, 
+                 fmt='o-', color='blue', capsize=5, 
+                 markersize=8, linewidth=2, label='Unimodal')
+    
+    if 'bimodal' in data:
+        alphas_bi = []
+        medias_bi = []
+        errores_bi = []
+        for alpha_str in alphas:
+            if alpha_str in data['bimodal'] and '0.24' in data['bimodal'][alpha_str]:
+                alphas_bi.append(float(alpha_str))
+                medias_bi.append(data['bimodal'][alpha_str]['0.24']['densidad_media'])
+                errores_bi.append(data['bimodal'][alpha_str]['0.24'].get('densidad_std', 0))
+        
+        if alphas_bi:
+            plt.errorbar(alphas_bi, medias_bi, yerr=errores_bi, 
+                        fmt='s-', color='red', capsize=5, 
+                        markersize=8, linewidth=2, label='Bimodal')
+    
+    plt.legend()
+
 plt.xlabel('α')
 plt.ylabel('Densidad en θ=0.24')
 plt.title('Densidades por α (con desviación estándar)')
-plt.grid(True, alpha=0.3, axis='y')
+plt.grid(True, alpha=0.3)
+plt.xscale('log')
 
 plt.tight_layout()
 plt.savefig('densidades_por_alpha.png', dpi=300, bbox_inches='tight')
