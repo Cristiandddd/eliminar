@@ -2,7 +2,7 @@
 """
 Análisis Informacional del Minority Game - VERSIÓN OPTIMIZADA
 ==============================================================
-- 16 workers
+- 8 workers
 - Muestreo 50% si pares > 500,000
 - TE calculada sobre pares no dirigidos (i < j)
 """
@@ -27,8 +27,8 @@ import random
 CONFIG = {
     "M": 9,
     "PRECISION": "float64",
-    "N_WORKERS": 16,
-    "UMBRAL_MUESTREO": 500000,  # Si pares > esto, muestrear 50%
+    "N_WORKERS": 8,
+    "UMBRAL_MUESTREO": 200000,  # Si pares > esto, muestrear 20%
 }
 
 # ============================================================
@@ -250,7 +250,7 @@ def calcular_mi_par_victorias(args):
     return {'mi': mi, 'nmi': nmi}
 
 
-def calcular_mi_entre_victorias_paralelo(victorias, n_workers=16):
+def calcular_mi_entre_victorias_paralelo(victorias, n_workers=8):
     """
     Calcula MI entre secuencias de victoria con muestreo automático.
     """
@@ -261,7 +261,7 @@ def calcular_mi_entre_victorias_paralelo(victorias, n_workers=16):
     
     # Decidir si muestrear
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 0.1
+        fraccion = 1
         n_muestra = int(total_pares * fraccion)
         print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
         
@@ -319,7 +319,7 @@ def calcular_mi_par_acciones(args):
     return {'mi': mi, 'nmi': nmi}
 
 
-def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=16):
+def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=8):
     """
     Calcula MI entre secuencias de acciones con muestreo automático.
     """
@@ -329,7 +329,7 @@ def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=16):
     print(f"  MI acciones: {N} agentes, {total_pares} pares totales")
     
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 0.1
+        fraccion = 1
         n_muestra = int(total_pares * fraccion)
         print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
         
@@ -485,7 +485,7 @@ def transfer_entropy_par_no_dirigido(args):
     }
 
 
-def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=16):
+def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=8):
     """
     Calcula TE para pares no dirigidos (i < j) con muestreo automático.
     """
@@ -495,7 +495,7 @@ def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=16):
     print(f"  TE: {N} agentes, {total_pares} pares no dirigidos totales")
     
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 0.1
+        fraccion = 0.2
         n_muestra = int(total_pares * fraccion)
         print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
         
@@ -570,7 +570,7 @@ def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=16):
 
 def analisis_informacional(archivo_path, output_dir="resultados"):
     """
-    Análisis informacional completo con 16 workers y muestreo adaptativo.
+    Análisis informacional completo con 8 workers y muestreo adaptativo.
     """
     os.makedirs(output_dir, exist_ok=True)
     
@@ -583,7 +583,7 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
     M = CONFIG['M']
     
     print(f"\n{'='*70}")
-    print(f"ANÁLISIS INFORMACIONAL - 16 WORKERS")
+    print(f"ANÁLISIS INFORMACIONAL - 8 WORKERS")
     print(f"{'='*70}")
     print(f"Archivo: {archivo_path}")
     print(f"α = {alpha}, N = {N}, T = {T}, M = {M}")
@@ -691,11 +691,11 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
 # ============================================================
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Análisis Informacional del MG (16 workers)')
+    parser = argparse.ArgumentParser(description='Análisis Informacional del MG (8 workers)')
     parser.add_argument('--file', type=str, required=True, help='Archivo JSON')
     parser.add_argument('--output', type=str, default='resultados', help='Directorio de salida')
     parser.add_argument('--M', type=int, default=9, help='Memoria del juego')
-    parser.add_argument('--workers', type=int, default=16, help='Número de workers')
+    parser.add_argument('--workers', type=int, default=8, help='Número de workers')
     parser.add_argument('--umbral', type=int, default=500000, help='Umbral para muestreo')
     
     args = parser.parse_args()
