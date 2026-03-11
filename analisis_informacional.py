@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Análisis Informacional del Minority Game - VERSIÓN OPTIMIZADA
-==============================================================
-- 8 workers
-- Muestreo 50% si pares > 500,000
-- TE calculada sobre pares no dirigidos (i < j)
+Análisis Informacional del Minority Game - VERSIÓN OPTIMIZADA (SIN TE)
+======================================================================
+- 16 workers
+- Muestreo 20% si pares > 500,000
+- SIN entropía de transferencia
 """
 
 import os
@@ -27,8 +27,8 @@ import random
 CONFIG = {
     "M": 9,
     "PRECISION": "float64",
-    "N_WORKERS": 8,
-    "UMBRAL_MUESTREO": 200000,  # Si pares > esto, muestrear 10%
+    "N_WORKERS": 16,
+    "UMBRAL_MUESTREO": 500000,  # Si pares > esto, muestrear 20%
 }
 
 # ============================================================
@@ -203,8 +203,7 @@ def calcular_predictibilidad(acciones_01, N, M=9):
     H_N = 0.0
     for idx in suma_A_normalizada:
         media_norm = suma_A_normalizada[idx] / count[idx]
-        media_centrada = media_norm - 0.5
-        H_N += media_centrada ** 2
+        H_N += media_norm ** 2
     
     H_N = H_N / P
     
@@ -251,7 +250,7 @@ def calcular_mi_par_victorias(args):
     return {'mi': mi, 'nmi': nmi}
 
 
-def calcular_mi_entre_victorias_paralelo(victorias, n_workers=8):
+def calcular_mi_entre_victorias_paralelo(victorias, n_workers=16):
     """
     Calcula MI entre secuencias de victoria con muestreo automático.
     """
@@ -262,9 +261,9 @@ def calcular_mi_entre_victorias_paralelo(victorias, n_workers=8):
     
     # Decidir si muestrear
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 0.1
+        fraccion = 0.2  # 20%
         n_muestra = int(total_pares * fraccion)
-        print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
+        print(f"  Muestreando {n_muestra} pares (10%)...")
         
         # Generar pares aleatorios únicos (i < j)
         pares = set()
@@ -320,7 +319,7 @@ def calcular_mi_par_acciones(args):
     return {'mi': mi, 'nmi': nmi}
 
 
-def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=8):
+def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=16):
     """
     Calcula MI entre secuencias de acciones con muestreo automático.
     """
@@ -330,9 +329,9 @@ def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=8):
     print(f"  MI acciones: {N} agentes, {total_pares} pares totales")
     
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 0.1
+        fraccion = 0.2  # 20%
         n_muestra = int(total_pares * fraccion)
-        print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
+        print(f"  Muestreando {n_muestra} pares (10%)...")
         
         pares = set()
         while len(pares) < n_muestra:
@@ -409,171 +408,17 @@ def calcular_mi_accion_estado(acciones_01, accion_minoritaria, M=9):
 
 
 # ============================================================
-# FUNCIÓN 7: ENTROPÍA DE TRANSFERENCIA (PARALELIZADA, i<j)
-# ============================================================
-
-def transfer_entropy_core(source, target, k=1, l=1):
-    """
-    Núcleo del cálculo de entropía de transferencia T(source→target).
-    """
-    n = len(source)
-    offset = max(k, l)
-    
-    if n <= offset + 1:
-        return 0.0
-    
-    n_samples = n - offset - 1
-    x_futuro = target[offset + 1:offset + 1 + n_samples]
-    
-    # Codificar pasados como enteros
-    x_pasado = np.zeros(n_samples, dtype=np.int32)
-    y_pasado = np.zeros(n_samples, dtype=np.int32)
-    
-    for i in range(n_samples):
-        t = offset + i
-        xp = 0
-        for s in range(k):
-            xp = (xp << 1) | target[t - s]
-        x_pasado[i] = xp
-        
-        yp = 0
-        for s in range(l):
-            yp = (yp << 1) | source[t - s]
-        y_pasado[i] = yp
-    
-    # H(X' | X^k)
-    H_xf_xp = entropia_conjunta(x_futuro, x_pasado)
-    H_xp = entropia(x_pasado)
-    H_cond_sin_y = H_xf_xp - H_xp
-    
-    # H(X' | X^k, Y^l)
-    max_xp = 2**k
-    max_yp = 2**l
-    conjunto = x_futuro * (max_xp * max_yp) + x_pasado * max_yp + y_pasado
-    _, counts = np.unique(conjunto, return_counts=True)
-    probs = counts / n_samples
-    H_conjunto = -np.sum(probs * np.log2(probs + 1e-12))
-    
-    # H(X^k, Y^l)
-    xp_yp = x_pasado * max_yp + y_pasado
-    _, counts_xy = np.unique(xp_yp, return_counts=True)
-    probs_xy = counts_xy / n_samples
-    H_xp_yp = -np.sum(probs_xy * np.log2(probs_xy + 1e-12))
-    
-    H_cond_con_y = H_conjunto - H_xp_yp
-    TE = H_cond_sin_y - H_cond_con_y
-    return max(0.0, float(TE))
-
-
-def transfer_entropy_par_no_dirigido(args):
-    """
-    Calcula TE en ambas direcciones para un par no dirigido (i,j) con i < j.
-    Retorna T(i→j) y T(j→i).
-    """
-    i, j, victorias_i, victorias_j, acciones_i, acciones_j = args
-    
-    te_ij_v = transfer_entropy_core(victorias_j, victorias_i)  # j→i
-    te_ji_v = transfer_entropy_core(victorias_i, victorias_j)  # i→j
-    
-    te_ij_a = transfer_entropy_core(acciones_j, acciones_i)
-    te_ji_a = transfer_entropy_core(acciones_i, acciones_j)
-    
-    return {
-        'te_ij_v': te_ij_v,
-        'te_ji_v': te_ji_v,
-        'te_ij_a': te_ij_a,
-        'te_ji_a': te_ji_a,
-    }
-
-
-def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=8):
-    """
-    Calcula TE para pares no dirigidos (i < j) con muestreo automático.
-    """
-    N = victorias.shape[0]
-    total_pares = N * (N - 1) // 2  # Pares no dirigidos
-    
-    print(f"  TE: {N} agentes, {total_pares} pares no dirigidos totales")
-    
-    if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 0.1
-        n_muestra = int(total_pares * fraccion)
-        print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
-        
-        pares = set()
-        while len(pares) < n_muestra:
-            i = random.randint(0, N-1)
-            j = random.randint(0, N-1)
-            if i != j:
-                pares.add((min(i,j), max(i,j)))
-        pares = list(pares)
-    else:
-        print(f"  Calculando todos los pares...")
-        pares = [(i, j) for i in range(N) for j in range(i+1, N)]
-    
-    # Preparar argumentos
-    args_list = []
-    for i, j in pares:
-        args_list.append((
-            i, j,
-            victorias[i], victorias[j],
-            acciones_01[i], acciones_01[j]
-        ))
-    
-    te_ij_v = []
-    te_ji_v = []
-    te_ij_a = []
-    te_ji_a = []
-    
-    with ProcessPoolExecutor(max_workers=n_workers) as executor:
-        futures = [executor.submit(transfer_entropy_par_no_dirigido, args) for args in args_list]
-        
-        for future in tqdm(as_completed(futures), total=len(futures), desc="TE"):
-            try:
-                res = future.result()
-                te_ij_v.append(res['te_ij_v'])
-                te_ji_v.append(res['te_ji_v'])
-                te_ij_a.append(res['te_ij_a'])
-                te_ji_a.append(res['te_ji_a'])
-            except Exception as e:
-                print(f"  Error: {e}")
-    
-    # Combinar todas las TE (ambas direcciones)
-    todas_te_v = te_ij_v + te_ji_v
-    todas_te_a = te_ij_a + te_ji_a
-    
-    return {
-        "TE_victorias": {
-            "media": float(np.mean(todas_te_v)),
-            "std": float(np.std(todas_te_v)),
-            "min": float(np.min(todas_te_v)),
-            "max": float(np.max(todas_te_v)),
-            "n_pares_dirigidos": len(todas_te_v),
-        },
-        "TE_acciones": {
-            "media": float(np.mean(todas_te_a)),
-            "std": float(np.std(todas_te_a)),
-            "min": float(np.min(todas_te_a)),
-            "max": float(np.max(todas_te_a)),
-            "n_pares_dirigidos": len(todas_te_a),
-        },
-        "metadata": {
-            "pares_no_dirigidos_muestreados": len(pares),
-            "total_pares_no_dirigidos": total_pares,
-            "fraccion_muestreo": len(pares) / total_pares if total_pares > 0 else 0,
-        }
-    }
-
-
-# ============================================================
 # FUNCIÓN PRINCIPAL
 # ============================================================
 
-def analisis_informacional(archivo_path, output_dir="resultados"):
+def analisis_informacional(archivo_path, output_dir="resultados", workers=16):
     """
-    Análisis informacional completo con 8 workers y muestreo adaptativo.
+    Análisis informacional completo (sin TE).
     """
     os.makedirs(output_dir, exist_ok=True)
+    
+    # Actualizar workers
+    CONFIG['N_WORKERS'] = workers
     
     # Cargar datos
     secuencias, alpha = cargar_datos_completos(archivo_path)
@@ -584,7 +429,7 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
     M = CONFIG['M']
     
     print(f"\n{'='*70}")
-    print(f"ANÁLISIS INFORMACIONAL - 8 WORKERS")
+    print(f"ANÁLISIS INFORMACIONAL (SIN TE)")
     print(f"{'='*70}")
     print(f"Archivo: {archivo_path}")
     print(f"α = {alpha}, N = {N}, T = {T}, M = {M}")
@@ -646,15 +491,6 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
     print(f"    MI media = {mi_estado['MI_media']:.6f} ± {mi_estado['MI_std']:.6f}")
     print(f"    Tiempo: {elapsed:.2f} s")
     
-    # 7. Entropía de transferencia
-    print("\n[7] ENTROPÍA DE TRANSFERENCIA")
-    start = time.time()
-    te = calcular_transfer_entropy_paralelo(victorias, acciones_01, CONFIG['N_WORKERS'])
-    elapsed = time.time() - start
-    print(f"    TE victorias media = {te['TE_victorias']['media']:.6f}")
-    print(f"    TE acciones media = {te['TE_acciones']['media']:.6f}")
-    print(f"    Tiempo: {elapsed:.2f} s")
-    
     # Guardar resultados
     resultados = {
         "metadata": {
@@ -672,7 +508,6 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
         "mi_victorias": mi_victorias,
         "mi_acciones": mi_acciones,
         "mi_accion_estado": mi_estado,
-        "transfer_entropy": te,
     }
     
     output_file = os.path.join(output_dir, f"analisis_{nombre_base}.json")
@@ -692,11 +527,11 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
 # ============================================================
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Análisis Informacional del MG (8 workers)')
+    parser = argparse.ArgumentParser(description='Análisis Informacional del MG (sin TE)')
     parser.add_argument('--file', type=str, required=True, help='Archivo JSON')
     parser.add_argument('--output', type=str, default='resultados', help='Directorio de salida')
     parser.add_argument('--M', type=int, default=9, help='Memoria del juego')
-    parser.add_argument('--workers', type=int, default=8, help='Número de workers')
+    parser.add_argument('--workers', type=int, default=16, help='Número de workers')
     parser.add_argument('--umbral', type=int, default=500000, help='Umbral para muestreo')
     
     args = parser.parse_args()
@@ -704,4 +539,4 @@ if __name__ == "__main__":
     CONFIG['N_WORKERS'] = args.workers
     CONFIG['UMBRAL_MUESTREO'] = args.umbral
     
-    analisis_informacional(args.file, args.output)
+    analisis_informacional(args.file, args.output, args.workers)
