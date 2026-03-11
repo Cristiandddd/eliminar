@@ -203,7 +203,8 @@ def calcular_predictibilidad(acciones_01, N, M=9):
     H_N = 0.0
     for idx in suma_A_normalizada:
         media_norm = suma_A_normalizada[idx] / count[idx]
-        H_N += media_norm ** 2
+        media_centralizada = media_norm - 0.5
+        H_N += media_centralizada ** 2
     
     H_N = H_N / P
     
@@ -263,7 +264,7 @@ def calcular_mi_entre_victorias_paralelo(victorias, n_workers=16):
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
         fraccion = 0.2  # 20%
         n_muestra = int(total_pares * fraccion)
-        print(f"  Muestreando {n_muestra} pares (10%)...")
+        print(f"  Muestreando {n_muestra} pares (20%)...")
         
         # Generar pares aleatorios únicos (i < j)
         pares = set()
@@ -331,7 +332,7 @@ def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=16):
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
         fraccion = 0.2  # 20%
         n_muestra = int(total_pares * fraccion)
-        print(f"  Muestreando {n_muestra} pares (10%)...")
+        print(f"  Muestreando {n_muestra} pares (20%)...")
         
         pares = set()
         while len(pares) < n_muestra:
