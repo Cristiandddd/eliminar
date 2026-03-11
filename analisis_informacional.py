@@ -280,7 +280,7 @@ def calcular_mi_par_victorias(args):
     }
 
 
-def calcular_mi_entre_victorias_paralelo(victorias, n_workers=12):
+def calcular_mi_entre_victorias_paralelo(victorias, n_workers=100):
     """
     Calcula MI entre secuencias de victoria de TODOS los pares de agentes en paralelo.
     """
@@ -341,7 +341,7 @@ def calcular_mi_par_acciones(args):
     }
 
 
-def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=12):
+def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=100):
     """
     Calcula MI entre secuencias de acciones de TODOS los pares de agentes en paralelo.
     """
@@ -396,7 +396,7 @@ def calcular_mi_accion_estado_par(args):
     return {'i': i, 'mi': mi}
 
 
-def calcular_mi_accion_estado_paralelo(acciones_01, accion_minoritaria, M=9, n_workers=12):
+def calcular_mi_accion_estado_paralelo(acciones_01, accion_minoritaria, M=9, n_workers=100):
     """
     Calcula MI entre la acción del agente en t+1 y el estado (historial) en t.
     Versión paralelizada.
@@ -521,7 +521,7 @@ def transfer_entropy_par(args):
     }
 
 
-def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=12):
+def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=100):
     """
     Calcula estadísticas de entropía de transferencia entre TODOS los pares de agentes
     utilizando paralelización.
@@ -702,7 +702,7 @@ if __name__ == "__main__":
     parser.add_argument('--file', type=str, required=True, help='Archivo JSON')
     parser.add_argument('--output', type=str, default='resultados', help='Directorio de salida')
     parser.add_argument('--M', type=int, default=9, help='Memoria del juego')
-    parser.add_argument('--workers', type=int, default=12, help='Número de workers')
+    parser.add_argument('--workers', type=int, default=100, help='Número de workers')
     
     args = parser.parse_args()
     CONFIG['M'] = args.M
