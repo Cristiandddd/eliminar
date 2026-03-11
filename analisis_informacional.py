@@ -28,7 +28,7 @@ CONFIG = {
     "M": 9,
     "PRECISION": "float64",
     "N_WORKERS": 8,
-    "UMBRAL_MUESTREO": 200000,  # Si pares > esto, muestrear 20%
+    "UMBRAL_MUESTREO": 200000,  # Si pares > esto, muestrear 10%
 }
 
 # ============================================================
@@ -262,7 +262,7 @@ def calcular_mi_entre_victorias_paralelo(victorias, n_workers=8):
     
     # Decidir si muestrear
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 0.2
+        fraccion = 0.1
         n_muestra = int(total_pares * fraccion)
         print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
         
@@ -330,7 +330,7 @@ def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=8):
     print(f"  MI acciones: {N} agentes, {total_pares} pares totales")
     
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 0.2
+        fraccion = 0.1
         n_muestra = int(total_pares * fraccion)
         print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
         
@@ -496,7 +496,7 @@ def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=8):
     print(f"  TE: {N} agentes, {total_pares} pares no dirigidos totales")
     
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 0.2
+        fraccion = 0.1
         n_muestra = int(total_pares * fraccion)
         print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
         
