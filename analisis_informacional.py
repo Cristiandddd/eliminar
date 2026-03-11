@@ -203,7 +203,8 @@ def calcular_predictibilidad(acciones_01, N, M=9):
     H_N = 0.0
     for idx in suma_A_normalizada:
         media_norm = suma_A_normalizada[idx] / count[idx]
-        H_N += media_norm ** 2
+        media_centrada = media_norm - 0.5
+        H_N += media_centrada ** 2
     
     H_N = H_N / P
     
@@ -261,7 +262,7 @@ def calcular_mi_entre_victorias_paralelo(victorias, n_workers=8):
     
     # Decidir si muestrear
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 1
+        fraccion = 0.2
         n_muestra = int(total_pares * fraccion)
         print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
         
@@ -329,7 +330,7 @@ def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=8):
     print(f"  MI acciones: {N} agentes, {total_pares} pares totales")
     
     if total_pares > CONFIG['UMBRAL_MUESTREO']:
-        fraccion = 1
+        fraccion = 0.2
         n_muestra = int(total_pares * fraccion)
         print(f"  Muestreando {n_muestra} pares ({fraccion*100:.0f}%)...")
         
