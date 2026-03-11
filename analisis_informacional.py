@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Análisis Informacional del Minority Game - VERSIÓN COMPLETA (SIN MUESTREO)
-==========================================================================
-Calcula TODOS los pares sin límites de muestreo con paralelización para TE.
+Análisis Informacional del Minority Game - VERSIÓN COMPLETA PARALELIZADA
+========================================================================
+Calcula TODOS los pares sin límites de muestreo con paralelización en TODOS los cálculos.
 """
 
 import os
@@ -24,7 +24,7 @@ import time
 CONFIG = {
     "M": 9,
     "PRECISION": "float64",
-    "N_WORKERS": 12,
+    "N_WORKERS": 100,
 }
 
 # ============================================================
@@ -132,7 +132,7 @@ def informacion_mutua_normalizada(seq1, seq2):
 
 
 # ============================================================
-# FUNCIÓN 1: VOLATILIDAD σ²/N
+# FUNCIÓN 1: VOLATILIDAD σ²/N (NO PARALELIZABLE - RÁPIDA)
 # ============================================================
 
 def calcular_volatilidad(acciones_01, N):
@@ -176,7 +176,7 @@ def calcular_volatilidad(acciones_01, N):
 
 
 # ============================================================
-# FUNCIÓN 2: PREDICTIBILIDAD H/N
+# FUNCIÓN 2: PREDICTIBILIDAD H/N (NO PARALELIZABLE - RÁPIDA)
 # ============================================================
 
 def calcular_predictibilidad(acciones_01, N, M=9):
@@ -236,7 +236,7 @@ def calcular_predictibilidad(acciones_01, N, M=9):
 
 
 # ============================================================
-# FUNCIÓN 3: CALCULAR VICTORIAS
+# FUNCIÓN 3: CALCULAR VICTORIAS (NO PARALELIZABLE - RÁPIDA)
 # ============================================================
 
 def calcular_victorias(acciones_01, N):
@@ -261,27 +261,53 @@ def calcular_victorias(acciones_01, N):
 
 
 # ============================================================
-# FUNCIÓN 4: INFORMACIÓN MUTUA ENTRE VICTORIAS (SIN MUESTREO)
+# FUNCIÓN 4: INFORMACIÓN MUTUA ENTRE VICTORIAS (PARALELIZADA)
 # ============================================================
 
-def calcular_mi_entre_victorias(victorias):
+def calcular_mi_par_victorias(args):
     """
-    Calcula MI entre secuencias de victoria de TODOS los pares de agentes.
+    Calcula MI para un par de índices (i,j) con i < j.
+    Args: (i, j, victoria_i, victoria_j)
+    """
+    i, j, victoria_i, victoria_j = args
+    mi = informacion_mutua(victoria_i, victoria_j)
+    nmi = informacion_mutua_normalizada(victoria_i, victoria_j)
+    return {
+        'i': i,
+        'j': j,
+        'mi': mi,
+        'nmi': nmi
+    }
+
+
+def calcular_mi_entre_victorias_paralelo(victorias, n_workers=12):
+    """
+    Calcula MI entre secuencias de victoria de TODOS los pares de agentes en paralelo.
     """
     N, T = victorias.shape
     total_pares = N * (N - 1) // 2
     
-    print(f"  Calculando MI entre victorias ({N} agentes, {total_pares} pares)...")
+    print(f"  Calculando MI entre victorias en paralelo ({N} agentes, {total_pares} pares, {n_workers} workers)...")
+    
+    # Preparar argumentos para cada par (i,j) con i < j
+    args_list = []
+    for i in range(N):
+        for j in range(i + 1, N):
+            args_list.append((i, j, victorias[i], victorias[j]))
     
     valores_mi = []
     valores_nmi = []
     
-    for i in tqdm(range(N), desc="MI victorias"):
-        for j in range(i + 1, N):
-            mi = informacion_mutua(victorias[i], victorias[j])
-            nmi = informacion_mutua_normalizada(victorias[i], victorias[j])
-            valores_mi.append(mi)
-            valores_nmi.append(nmi)
+    with ProcessPoolExecutor(max_workers=n_workers) as executor:
+        futures = [executor.submit(calcular_mi_par_victorias, args) for args in args_list]
+        
+        for future in tqdm(as_completed(futures), total=len(futures), desc="MI victorias paralelo"):
+            try:
+                res = future.result()
+                valores_mi.append(res['mi'])
+                valores_nmi.append(res['nmi'])
+            except Exception as e:
+                print(f"  Error en par: {e}")
     
     return {
         "MI_media": float(np.mean(valores_mi)),
@@ -296,27 +322,53 @@ def calcular_mi_entre_victorias(victorias):
 
 
 # ============================================================
-# FUNCIÓN 5: INFORMACIÓN MUTUA ENTRE ACCIONES (SIN MUESTREO)
+# FUNCIÓN 5: INFORMACIÓN MUTUA ENTRE ACCIONES (PARALELIZADA)
 # ============================================================
 
-def calcular_mi_entre_acciones(acciones_01):
+def calcular_mi_par_acciones(args):
     """
-    Calcula MI entre secuencias de acciones de TODOS los pares de agentes.
+    Calcula MI para un par de índices (i,j) con i < j.
+    Args: (i, j, acciones_i, acciones_j)
+    """
+    i, j, acciones_i, acciones_j = args
+    mi = informacion_mutua(acciones_i, acciones_j)
+    nmi = informacion_mutua_normalizada(acciones_i, acciones_j)
+    return {
+        'i': i,
+        'j': j,
+        'mi': mi,
+        'nmi': nmi
+    }
+
+
+def calcular_mi_entre_acciones_paralelo(acciones_01, n_workers=12):
+    """
+    Calcula MI entre secuencias de acciones de TODOS los pares de agentes en paralelo.
     """
     N, T = acciones_01.shape
     total_pares = N * (N - 1) // 2
     
-    print(f"  Calculando MI entre acciones ({N} agentes, {total_pares} pares)...")
+    print(f"  Calculando MI entre acciones en paralelo ({N} agentes, {total_pares} pares, {n_workers} workers)...")
+    
+    # Preparar argumentos para cada par (i,j) con i < j
+    args_list = []
+    for i in range(N):
+        for j in range(i + 1, N):
+            args_list.append((i, j, acciones_01[i], acciones_01[j]))
     
     valores_mi = []
     valores_nmi = []
     
-    for i in tqdm(range(N), desc="MI acciones"):
-        for j in range(i + 1, N):
-            mi = informacion_mutua(acciones_01[i], acciones_01[j])
-            nmi = informacion_mutua_normalizada(acciones_01[i], acciones_01[j])
-            valores_mi.append(mi)
-            valores_nmi.append(nmi)
+    with ProcessPoolExecutor(max_workers=n_workers) as executor:
+        futures = [executor.submit(calcular_mi_par_acciones, args) for args in args_list]
+        
+        for future in tqdm(as_completed(futures), total=len(futures), desc="MI acciones paralelo"):
+            try:
+                res = future.result()
+                valores_mi.append(res['mi'])
+                valores_nmi.append(res['nmi'])
+            except Exception as e:
+                print(f"  Error en par: {e}")
     
     return {
         "MI_media": float(np.mean(valores_mi)),
@@ -331,19 +383,27 @@ def calcular_mi_entre_acciones(acciones_01):
 
 
 # ============================================================
-# FUNCIÓN 6: MI ACCIÓN-ESTADO
+# FUNCIÓN 6: MI ACCIÓN-ESTADO (PARALELIZADA)
 # ============================================================
 
-def calcular_mi_accion_estado(acciones_01, accion_minoritaria, M=9):
+def calcular_mi_accion_estado_par(args):
+    """
+    Calcula MI acción-estado para un agente i.
+    Args: (i, estados, acciones_futuras_i)
+    """
+    i, estados, acciones_futuras_i = args
+    mi = informacion_mutua(estados, acciones_futuras_i)
+    return {'i': i, 'mi': mi}
+
+
+def calcular_mi_accion_estado_paralelo(acciones_01, accion_minoritaria, M=9, n_workers=12):
     """
     Calcula MI entre la acción del agente en t+1 y el estado (historial) en t.
-    
-    Esto mide cuánta información tiene el historial sobre la próxima acción
-    del agente.
+    Versión paralelizada.
     """
     N, T = acciones_01.shape
     
-    print(f"  Calculando MI acción-estado para {N} agentes...")
+    print(f"  Calculando MI acción-estado en paralelo para {N} agentes con {n_workers} workers...")
     
     # Pre-calcular estados (historiales)
     estados = np.zeros(T - M, dtype=np.int32)
@@ -353,15 +413,23 @@ def calcular_mi_accion_estado(acciones_01, accion_minoritaria, M=9):
             idx = (idx << 1) | accion_minoritaria[t - M + s]
         estados[t - M] = idx
     
+    # Preparar argumentos para cada agente
+    args_list = []
+    for i in range(N):
+        acciones_futuras = acciones_01[i, M:]
+        args_list.append((i, estados, acciones_futuras))
+    
     mi_por_agente = []
     
-    for i in tqdm(range(N), desc="MI acción-estado"):
-        # Acción del agente en t+1 (alineada con estados en t)
-        acciones_futuras = acciones_01[i, M:]
+    with ProcessPoolExecutor(max_workers=n_workers) as executor:
+        futures = [executor.submit(calcular_mi_accion_estado_par, args) for args in args_list]
         
-        # Calcular MI
-        mi = informacion_mutua(estados, acciones_futuras)
-        mi_por_agente.append(mi)
+        for future in tqdm(as_completed(futures), total=len(futures), desc="MI acción-estado paralelo"):
+            try:
+                res = future.result()
+                mi_por_agente.append(res['mi'])
+            except Exception as e:
+                print(f"  Error en agente: {e}")
     
     return {
         "MI_media": float(np.mean(mi_por_agente)),
@@ -374,24 +442,6 @@ def calcular_mi_accion_estado(acciones_01, accion_minoritaria, M=9):
 # ============================================================
 # FUNCIÓN 7: ENTROPÍA DE TRANSFERENCIA (PARALELIZADA)
 # ============================================================
-
-def transfer_entropy_par(args):
-    """
-    Versión paralelizable de transfer_entropy.
-    Args: (i, j, victorias_i, victorias_j, acciones_i, acciones_j)
-    """
-    i, j, victorias_i, victorias_j, acciones_i, acciones_j = args
-    
-    te_v = transfer_entropy_core(victorias_j, victorias_i)
-    te_a = transfer_entropy_core(acciones_j, acciones_i)
-    
-    return {
-        'i': i,
-        'j': j,
-        'te_v': te_v,
-        'te_a': te_a
-    }
-
 
 def transfer_entropy_core(source, target, k=1, l=1):
     """
@@ -453,6 +503,24 @@ def transfer_entropy_core(source, target, k=1, l=1):
     return max(0.0, float(TE))
 
 
+def transfer_entropy_par(args):
+    """
+    Versión paralelizable de transfer_entropy.
+    Args: (i, j, victorias_i, victorias_j, acciones_i, acciones_j)
+    """
+    i, j, victorias_i, victorias_j, acciones_i, acciones_j = args
+    
+    te_v = transfer_entropy_core(victorias_j, victorias_i)
+    te_a = transfer_entropy_core(acciones_j, acciones_i)
+    
+    return {
+        'i': i,
+        'j': j,
+        'te_v': te_v,
+        'te_a': te_a
+    }
+
+
 def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=12):
     """
     Calcula estadísticas de entropía de transferencia entre TODOS los pares de agentes
@@ -477,7 +545,6 @@ def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=12):
     te_victorias = []
     te_acciones = []
     
-    # Procesar en paralelo
     with ProcessPoolExecutor(max_workers=n_workers) as executor:
         futures = [executor.submit(transfer_entropy_par, args) for args in args_list]
         
@@ -511,7 +578,7 @@ def calcular_transfer_entropy_paralelo(victorias, acciones_01, n_workers=12):
 
 def analisis_informacional(archivo_path, output_dir="resultados"):
     """
-    Análisis informacional completo (sin muestreo) con TE paralelizado.
+    Análisis informacional completo (sin muestreo) con TODO paralelizado.
     """
     os.makedirs(output_dir, exist_ok=True)
     
@@ -524,11 +591,11 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
     M = CONFIG['M']
     
     print(f"\n{'='*70}")
-    print(f"ANÁLISIS INFORMACIONAL COMPLETO (SIN MUESTREO, TE PARALELO)")
+    print(f"ANÁLISIS INFORMACIONAL COMPLETO (TODO PARALELIZADO)")
     print(f"{'='*70}")
     print(f"Archivo: {archivo_path}")
     print(f"α = {alpha}, N = {N}, T = {T}, M = {M}")
-    print(f"Workers TE: {CONFIG['N_WORKERS']}")
+    print(f"Workers: {CONFIG['N_WORKERS']}")
     print(f"{'='*70}\n")
     
     # Convertir a matriz
@@ -540,19 +607,19 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
     del secuencias
     gc.collect()
     
-    # 1. Volatilidad
+    # 1. Volatilidad (rápida, no paralelizar)
     print("\n[1] VOLATILIDAD σ²/N")
     vol = calcular_volatilidad(acciones_01, N)
     print(f"    σ²/N = {vol['sigma2_N']:.6f}")
     print(f"    Eficiencia = {vol['eficiencia']:.4f}")
     
-    # 2. Predictibilidad
+    # 2. Predictibilidad (rápida, no paralelizar)
     print("\n[2] PREDICTIBILIDAD H/N")
     pred = calcular_predictibilidad(acciones_01, N, M)
     print(f"    H/N = {pred['H_N']:.6f}")
     print(f"    Historiales observados: {pred['n_historiales_observados']}/{pred['total_historiales_posibles']}")
     
-    # 3. Calcular victorias
+    # 3. Calcular victorias (rápida, no paralelizar)
     print("\n[3] CALCULANDO VICTORIAS...")
     victorias, accion_minoritaria = calcular_victorias(acciones_01, N)
     
@@ -560,31 +627,40 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
     win_rates = np.mean(victorias, axis=1)
     print(f"    Win rate medio: {np.mean(win_rates):.4f} ± {np.std(win_rates):.4f}")
     
-    # 4. MI entre victorias (TODOS los pares)
-    print("\n[4] MI ENTRE VICTORIAS")
-    mi_victorias = calcular_mi_entre_victorias(victorias)
+    # 4. MI entre victorias (PARALELIZADA)
+    print("\n[4] MI ENTRE VICTORIAS (PARALELIZADA)")
+    start = time.time()
+    mi_victorias = calcular_mi_entre_victorias_paralelo(victorias, CONFIG['N_WORKERS'])
+    elapsed = time.time() - start
     print(f"    MI media = {mi_victorias['MI_media']:.6f} ± {mi_victorias['MI_std']:.6f}")
     print(f"    NMI media = {mi_victorias['NMI_media']:.6f}")
+    print(f"    Tiempo: {elapsed:.2f} segundos")
     
-    # 5. MI entre acciones (TODOS los pares)
-    print("\n[5] MI ENTRE ACCIONES")
-    mi_acciones = calcular_mi_entre_acciones(acciones_01)
+    # 5. MI entre acciones (PARALELIZADA)
+    print("\n[5] MI ENTRE ACCIONES (PARALELIZADA)")
+    start = time.time()
+    mi_acciones = calcular_mi_entre_acciones_paralelo(acciones_01, CONFIG['N_WORKERS'])
+    elapsed = time.time() - start
     print(f"    MI media = {mi_acciones['MI_media']:.6f} ± {mi_acciones['MI_std']:.6f}")
     print(f"    NMI media = {mi_acciones['NMI_media']:.6f}")
+    print(f"    Tiempo: {elapsed:.2f} segundos")
     
-    # 6. MI acción-estado
-    print("\n[6] MI ACCIÓN-ESTADO")
-    mi_estado = calcular_mi_accion_estado(acciones_01, accion_minoritaria, M)
+    # 6. MI acción-estado (PARALELIZADA)
+    print("\n[6] MI ACCIÓN-ESTADO (PARALELIZADA)")
+    start = time.time()
+    mi_estado = calcular_mi_accion_estado_paralelo(acciones_01, accion_minoritaria, M, CONFIG['N_WORKERS'])
+    elapsed = time.time() - start
     print(f"    MI media = {mi_estado['MI_media']:.6f} ± {mi_estado['MI_std']:.6f}")
+    print(f"    Tiempo: {elapsed:.2f} segundos")
     
     # 7. Entropía de transferencia (PARALELIZADA)
     print("\n[7] ENTROPÍA DE TRANSFERENCIA (PARALELIZADA)")
-    start_te = time.time()
+    start = time.time()
     te = calcular_transfer_entropy_paralelo(victorias, acciones_01, CONFIG['N_WORKERS'])
-    te_time = time.time() - start_te
+    elapsed = time.time() - start
     print(f"    TE victorias media = {te['TE_victorias']['media']:.6f}")
     print(f"    TE acciones media = {te['TE_acciones']['media']:.6f}")
-    print(f"    Tiempo TE: {te_time:.2f} segundos")
+    print(f"    Tiempo: {elapsed:.2f} segundos")
     
     # Guardar resultados
     resultados = {
@@ -594,7 +670,7 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
             "N": N,
             "T": T,
             "M": M,
-            "workers_te": CONFIG['N_WORKERS'],
+            "workers": CONFIG['N_WORKERS'],
             "fecha": datetime.now().isoformat(),
         },
         "volatilidad": vol,
@@ -622,11 +698,11 @@ def analisis_informacional(archivo_path, output_dir="resultados"):
 # ============================================================
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Análisis Informacional del MG (Completo, TE Paralelo)')
+    parser = argparse.ArgumentParser(description='Análisis Informacional del MG (Completo, Todo Paralelo)')
     parser.add_argument('--file', type=str, required=True, help='Archivo JSON')
     parser.add_argument('--output', type=str, default='resultados', help='Directorio de salida')
     parser.add_argument('--M', type=int, default=9, help='Memoria del juego')
-    parser.add_argument('--workers', type=int, default=12, help='Número de workers para TE')
+    parser.add_argument('--workers', type=int, default=12, help='Número de workers')
     
     args = parser.parse_args()
     CONFIG['M'] = args.M
