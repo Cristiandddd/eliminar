@@ -229,10 +229,8 @@ def calcular_predictibilidad(acciones_01, N, M=9):
     for idx in suma_A_normalizada:
         # Media condicional normalizada: <A/N | μ>
         media_norm = suma_A_normalizada[idx] / count[idx]
-        # Centrar respecto a 0.5 (que es el valor esperado para aleatorio)
-        media_centrada = media_norm - 0.5
         # Sumar el cuadrado
-        H_N += media_centrada ** 2
+        H_N += media_norm ** 2
     
     # Promediar sobre todos los historiales posibles (no solo los observados)
     H_N = H_N / P
