@@ -1,236 +1,328 @@
 #!/usr/bin/env python3
 """
-Cálculo de predictibilidad H (corregido) del Minority Game
-Basado en la definición de la literatura: H = (1/P) Σ_μ ⟨A|μ⟩²
+Calcula la predictibilidad H/N² exactamente como se define en el seminario de Kocevar (2010).
+
+Definicion (Eq. 3.8 del seminario):
+    H = (1/2^M) * sum_{mu=1}^{2^M} <A|mu>^2
+
+En la Figura 3.6 del seminario, H está en el rango [0,1], lo que implica que grafican H/N².
+
+Con acciones {-1, +1}:
+- A(t) = sum_i a_i(t) donde a_i in {-1, +1}
+- <A> = 0 (por simetria)
+- A puede variar entre -N y +N
+- H puede ser hasta N², por eso normalizamos por N² para obtener valores [0,1]
 """
 
-import os
 import json
-import glob
 import numpy as np
-from datetime import datetime
-from tqdm import tqdm
-import argparse
 import matplotlib.pyplot as plt
+from pathlib import Path
 from collections import defaultdict
-
-def cargar_datos_completos(archivo_path):
-    """Carga TODOS los datos del archivo."""
-    print(f"Cargando datos de {archivo_path}...")
-    with open(archivo_path, 'r') as f:
-        datos = json.load(f)
-    
-    secuencias = []
-    alpha = None
-    
-    for item in tqdm(datos, desc="Cargando agentes"):
-        if isinstance(item, list) and len(item) == 2:
-            sec, a = item
-            secuencias.append(np.array(sec, dtype=np.int8))
-            if alpha is None:
-                alpha = float(a)
-    
-    return secuencias, alpha
+import glob
+import re
+import sys
 
 
-def detectar_formato_datos(acciones):
-    """Detecta si los datos están en formato {0,1} o {-1,1}."""
-    valores_unicos = np.unique(acciones)
-    if -1 in valores_unicos:
-        return 'binario_pm1'
-    return 'binario_01'
-
-
-def convertir_a_01(acciones, formato):
-    """Convierte acciones a formato {0,1} si es necesario."""
-    if formato == 'binario_pm1':
-        return ((acciones + 1) // 2).astype(np.int8)
-    return acciones
-
-
-def calcular_predictibilidad_corregida(archivo_path):
+def historial_a_indice(historial, M):
     """
-    Calcula la predictibilidad H según la definición de la literatura:
-    H = (1/2^M) Σ_μ ⟨A|μ⟩²
-    donde ⟨A|μ⟩ es la asistencia promedio condicionada al historial μ.
+    Convierte una secuencia de M bits a un indice entero [0, 2^M - 1].
+    historial: lista/array de los ultimos M resultados ganadores (0 o 1)
     """
-    # Cargar datos
-    secuencias, alpha = cargar_datos_completos(archivo_path)
+    idx = 0
+    for i, bit in enumerate(historial):
+        idx += int(bit) * (2 ** (M - 1 - i))
+    return idx
+
+
+def calcular_resultado_ganador(acciones_t, N, formato='01'):
+    """
+    Determina cual fue la accion ganadora (minoritaria) en el tiempo t.
     
-    N = len(secuencias)
-    T = len(secuencias[0])
-    M = 9  # Memoria del juego
+    acciones_t: array de acciones de todos los agentes en tiempo t
+    N: numero de agentes
+    formato: '01' si acciones son {0,1}, 'pm1' si son {-1,+1}
     
-    # Convertir a matriz
-    acciones = np.array(secuencias, dtype=np.int8)
-    formato = detectar_formato_datos(acciones)
-    acciones_01 = convertir_a_01(acciones, formato)
+    Retorna: 0 o 1 indicando la accion minoritaria (siempre en formato {0,1})
+    """
+    if formato == '01':
+        suma = np.sum(acciones_t)
+        # Si suma < N/2, la mayoria eligio 0, entonces 1 es minoritaria
+        # Si suma > N/2, la mayoria eligio 1, entonces 0 es minoritaria
+        return 1 if suma < N / 2 else 0
+    else:  # pm1
+        suma = np.sum(acciones_t)
+        # Si suma < 0, la mayoria eligio -1, entonces +1 es minoritaria
+        # Si suma > 0, la mayoria eligio +1, entonces -1 es minoritaria
+        # Convertimos a 0/1: 0 para -1, 1 para +1
+        return 1 if suma < 0 else 0
+
+
+def calcular_asistencia_en_pm1(acciones_t, formato='01'):
+    """
+    Calcula la asistencia A(t) = sum_i a_i(t) con acciones en formato {-1, +1}.
     
-    # Asistencia por ronda
-    asistencia = np.sum(acciones_01, axis=0, dtype=np.float64)
+    Si las acciones son {0,1}, las convierte automaticamente.
+    """
+    if formato == '01':
+        # Convertir {0,1} -> {-1,+1}
+        acciones_pm1 = 2 * acciones_t - 1
+        return np.sum(acciones_pm1)
+    else:
+        return np.sum(acciones_t)
+
+
+def calcular_predictibilidad(acciones, M=9, formato='01'):
+    """
+    Calcula H y H/N² segun la definicion del seminario.
     
-    # Acción ganadora (minoritaria) por ronda
-    umbral = N / 2.0
-    accion_ganadora = (asistencia < umbral).astype(np.int8)
+    H = (1/2^M) * sum_{mu} <A|mu>^2
     
-    P = 2**M  # Número de historiales posibles
+    donde <A|mu> es el promedio de A(t) (en formato {-1,+1}) condicionado a que el historial en t sea mu.
+    El historial se construye con los resultados ganadores en formato {0,1}.
     
-    # Acumular sumas para cada historial
-    suma_A = {}  # Σ A(t) para cada historial (SIN normalizar)
-    count = {}   # Número de veces que aparece cada historial
+    Para comparar con la Figura 3.6 del seminario, usamos H_normalized = H / N²,
+    que da valores en el rango [0,1].
     
+    Parametros:
+    -----------
+    acciones : array (N, T)
+        Matriz de acciones de N agentes durante T rondas
+    M : int
+        Longitud de memoria (brain size)
+    formato : str
+        '01' si acciones son {0,1}, 'pm1' si son {-1,+1}
+    
+    Retorna:
+    --------
+    H : float
+        Predictibilidad cruda (puede ser del orden de N²)
+    H_normalized : float
+        Predictibilidad normalizada H/N² (tipicamente entre 0 y 1)
+    """
+    N, T = acciones.shape
+    n_historiales = 2 ** M
+    
+    # Primero calculamos la secuencia de acciones ganadoras (para construir historiales)
+    # y la secuencia de asistencias A(t) en formato {-1,+1}
+    
+    resultados_ganadores = np.zeros(T, dtype=int)  # Siempre en {0,1}
+    asistencias_pm1 = np.zeros(T, dtype=float)    # En formato {-1,+1}
+    
+    for t in range(T):
+        acciones_t = acciones[:, t]
+        resultados_ganadores[t] = calcular_resultado_ganador(acciones_t, N, formato)
+        asistencias_pm1[t] = calcular_asistencia_en_pm1(acciones_t, formato)
+    
+    # Ahora acumulamos <A|mu> para cada historial mu
+    suma_A_por_historial = defaultdict(float)
+    count_por_historial = defaultdict(int)
+    
+    # Empezamos desde t = M para tener M bits de historia
     for t in range(M, T):
-        # Construir índice del historial
-        historial = accion_ganadora[t-M:t]
-        idx = 0
-        for bit in historial:
-            idx = (idx << 1) | bit
+        # El historial en tiempo t son los M resultados ganadores anteriores
+        historial = resultados_ganadores[t-M:t]
+        mu = historial_a_indice(historial, M)
         
-        # Asistencia CRUDA en esta ronda (sin dividir por N)
-        A_cruda = asistencia[t]
-        
-        suma_A[idx] = suma_A.get(idx, 0.0) + A_cruda
-        count[idx] = count.get(idx, 0) + 1
+        # Acumulamos la asistencia (en formato {-1,+1}) para este historial
+        suma_A_por_historial[mu] += asistencias_pm1[t]
+        count_por_historial[mu] += 1
     
-    # Calcular H
+    # Calculamos H = (1/2^M) * sum_{mu} <A|mu>^2
     H = 0.0
-    for idx in suma_A:
-        media_condicional = suma_A[idx] / count[idx]  # ⟨A|μ⟩
-        H += media_condicional ** 2
+    for mu in range(n_historiales):
+        if count_por_historial[mu] > 0:
+            media_A_dado_mu = suma_A_por_historial[mu] / count_por_historial[mu]
+            H += media_A_dado_mu ** 2
+        # Si count = 0, ese historial nunca ocurrio, contribuye 0
     
-    H = H / P  # Normalizar por número de historiales posibles
+    H = H / n_historiales  # Normalizar por 2^M
+    H_normalized = H / N  
     
-    return {
-        'alpha': alpha,
-        'H': float(H),
-        'N': N,
-        'T': T,
-        'n_historiales_observados': len(count),
-        'total_historiales': P
-    }
+    return H, H_normalized
 
 
-def procesar_todos_archivos(directorio="."):
+def cargar_acciones_de_json(filepath):
     """
-    Procesa todos los archivos *_transformado.json en el directorio.
+    Carga las acciones de un archivo JSON transformado.
+    Formato esperado: [ [acciones_agente1, alpha], [acciones_agente2, alpha], ... ]
     """
-    archivos = glob.glob(os.path.join(directorio, "*_transformado.json"))
+    with open(filepath, 'r') as f:
+        data = json.load(f)
     
-    if not archivos:
-        print(f"❌ No se encontraron archivos *_transformado.json en {directorio}")
-        return None
+    # Formato: lista de [secuencia, alpha]
+    if isinstance(data, list) and len(data) > 0:
+        # Extraer secuencias y alpha
+        secuencias = []
+        alpha = None
+        for item in data:
+            if isinstance(item, list) and len(item) == 2:
+                sec, a = item
+                secuencias.append(sec)
+                if alpha is None:
+                    alpha = float(a)
+        
+        if secuencias:
+            acciones = np.array(secuencias, dtype=np.int8)
+            N = acciones.shape[0]
+            return acciones, alpha, N, 9  # M=9 por defecto
     
-    print(f"📁 Encontrados {len(archivos)} archivos")
+    return None, None, None, None
+
+
+def extraer_alpha_de_nombre(nombre_archivo):
+    """Extrae el valor de alpha del nombre del archivo."""
+    # Buscar patron alpha_X.XXX o similar
+    match = re.search(r'([0-9]+\.[0-9]+)', nombre_archivo)
+    if match:
+        return float(match.group(1))
+    return None
+
+
+def procesar_directorio(directorio, patron='*_transformado.json', M=9):
+    """
+    Procesa todos los archivos JSON en un directorio y calcula H/N² para cada uno.
     
-    # Agrupar resultados por alpha
-    resultados_por_alpha = defaultdict(list)
+    Retorna:
+    --------
+    resultados : dict
+        {alpha: [lista de H/N² para ese alpha]}
+    """
+    resultados = defaultdict(list)
+    archivos = glob.glob(str(Path(directorio) / patron))
     
-    for archivo in tqdm(archivos, desc="Procesando archivos"):
+    print(f"Encontrados {len(archivos)} archivos")
+    
+    for filepath in archivos:
         try:
-            resultado = calcular_predictibilidad_corregida(archivo)
-            alpha = resultado['alpha']
-            resultados_por_alpha[alpha].append(resultado['H'])
-            print(f"  {os.path.basename(archivo)}: α={alpha:.4f}, H={resultado['H']:.4f}")
+            acciones, alpha, N, M_archivo = cargar_acciones_de_json(filepath)
+            
+            if acciones is None or alpha is None:
+                # Intentar extraer alpha del nombre
+                alpha = extraer_alpha_de_nombre(str(filepath))
+                if alpha is None:
+                    print(f"  Saltando {Path(filepath).name}: no se pudo determinar alpha")
+                    continue
+            
+            # Usar M del archivo si esta disponible, sino usar el proporcionado
+            M_usar = M_archivo if M_archivo else M
+            
+            H, H_normalized = calcular_predictibilidad(acciones, M=M_usar, formato='01')
+            
+            resultados[alpha].append(H_normalized)
+            print(f"  {Path(filepath).name}: alpha={alpha:.4f}, N={N}, H/N²={H_normalized:.6f}")
+            
         except Exception as e:
-            print(f"  Error en {archivo}: {e}")
+            print(f"  Error procesando {filepath}: {e}")
     
-    return resultados_por_alpha
+    return resultados
 
 
-def calcular_estadisticas(resultados_por_alpha):
+def graficar_HN2_vs_alpha(resultados, output_path='H_vs_alpha.png'):
     """
-    Calcula media y desviación estándar de H para cada alpha.
+    Genera grafico de H/N² vs alpha con barras de error.
     """
-    estadisticas = []
-    
-    for alpha, valores_h in resultados_por_alpha.items():
-        estadisticas.append({
-            'alpha': alpha,
-            'H_media': float(np.mean(valores_h)),
-            'H_std': float(np.std(valores_h)),
-            'n_muestras': len(valores_h)
-        })
-    
     # Ordenar por alpha
-    estadisticas.sort(key=lambda x: x['alpha'])
+    alphas = sorted(resultados.keys())
     
-    return estadisticas
-
-
-def graficar_H(estadisticas):
-    """
-    Genera gráfica de H promedio vs alpha con barras de error.
-    """
-    alphas = [e['alpha'] for e in estadisticas]
-    h_medias = [e['H_media'] for e in estadisticas]
-    h_stds = [e['H_std'] for e in estadisticas]
+    medias = []
+    stds = []
     
-    plt.figure(figsize=(10, 6))
-    plt.errorbar(alphas, h_medias, yerr=h_stds, fmt='o-', 
-                 capsize=5, linewidth=2, markersize=8, 
-                 color='blue', ecolor='gray', elinewidth=1)
+    for alpha in alphas:
+        valores = resultados[alpha]
+        medias.append(np.mean(valores))
+        stds.append(np.std(valores) if len(valores) > 1 else 0)
     
-    plt.xlabel('α')
-    plt.ylabel('H')
-    plt.title('Predictibilidad H del Minority Game')
-    plt.xscale('log')
-    plt.grid(True, alpha=0.3)
+    alphas = np.array(alphas)
+    medias = np.array(medias)
+    stds = np.array(stds)
+    
+    # Crear figura
+    fig, ax = plt.subplots(figsize=(10, 7))
+    
+    # Graficar con barras de error
+    ax.errorbar(alphas, medias, yerr=stds, fmt='o-', capsize=3, 
+                color='blue', markersize=6, linewidth=1.5,
+                label=r'$H/N$ (simulacion)')
+    
+    # Linea vertical en alpha_c
+    ax.axvline(x=0.34, color='red', linestyle='--', linewidth=1.5, 
+               label=r'$\alpha_c \approx 0.34$')
+    
+    # Regiones
+    ax.axvspan(0, 0.34, alpha=0.1, color='lightblue', label='Fase simetrica')
+    ax.axvspan(0.34, max(alphas)*1.1, alpha=0.1, color='lightcoral', label='Fase asimetrica')
+    
+    # Configurar escala logaritmica en x
+    ax.set_xscale('log')
+    
+    # Labels y titulo
+    ax.set_xlabel(r'$\alpha = 2^M / N$', fontsize=14)
+    ax.set_ylabel(r'$H/N$', fontsize=14)
+    ax.set_title(r'Predictibilidad $H/N$ vs $\alpha$ (comparacion con Figura 3.6)', fontsize=16)
+    
+    # Limites
+    ax.set_xlim(min(alphas) * 0.8, max(alphas) * 1.2)
+    ax.set_ylim(0, max(medias + stds) * 1.1 if len(medias) > 0 else 0.6)
+    
+    ax.legend(loc='upper left', fontsize=10)
+    ax.grid(True, alpha=0.3)
+    
     plt.tight_layout()
-    plt.savefig('predictibilidad_H_vs_alpha.png', dpi=300)
-    plt.show()
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close()
     
-    print("✅ Gráfica guardada: predictibilidad_H_vs_alpha.png")
+    print(f"\nGrafico guardado en: {output_path}")
+    
+    return alphas, medias, stds
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Cálculo de predictibilidad H (corregido)')
-    parser.add_argument('--dir', type=str, default='.', 
-                       help='Directorio con archivos *_transformado.json')
-    parser.add_argument('--single', type=str, default=None,
-                       help='Procesar un solo archivo específico')
-    
-    args = parser.parse_args()
-    
-    if args.single:
-        # Procesar un solo archivo
-        resultado = calcular_predictibilidad_corregida(args.single)
-        print("\n" + "="*50)
-        print(f"Resultado para {os.path.basename(args.single)}")
-        print("="*50)
-        print(f"α = {resultado['alpha']:.4f}")
-        print(f"H = {resultado['H']:.4f}")
-        print(f"N = {resultado['N']}")
-        print(f"T = {resultado['T']}")
-        print(f"Historiales observados: {resultado['n_historiales_observados']}/{resultado['total_historiales']}")
-        
-        # Guardar resultado individual
-        output_file = f"predictibilidad_{os.path.basename(args.single).replace('.json', '')}.json"
-        with open(output_file, 'w') as f:
-            json.dump(resultado, f, indent=2)
-        print(f"\n✅ Resultado guardado en: {output_file}")
-        
+    """
+    Uso: python calcular_predictibilidad_HN2.py [directorio_jsons] [M]
+    """
+    if len(sys.argv) < 2:
+        directorio = "."
     else:
-        # Procesar todos los archivos
-        resultados = procesar_todos_archivos(args.dir)
-        
-        if not resultados:
-            return
-        
-        estadisticas = calcular_estadisticas(resultados)
-        
-        # Guardar estadísticas
-        with open('predictibilidad_estadisticas.json', 'w') as f:
-            json.dump(estadisticas, f, indent=2)
-        
-        print("\n" + "="*50)
-        print("ESTADÍSTICAS POR ALPHA")
-        print("="*50)
-        for e in estadisticas:
-            print(f"α = {e['alpha']:.4f}: H = {e['H_media']:.4f} ± {e['H_std']:.4f} (n={e['n_muestras']})")
-        
-        # Graficar
-        graficar_H(estadisticas)
+        directorio = sys.argv[1]
+    
+    M = int(sys.argv[2]) if len(sys.argv) > 2 else 9
+    
+    print(f"Procesando directorio: {directorio}")
+    print(f"Usando M = {M}")
+    
+    resultados = procesar_directorio(directorio, M=M)
+    
+    if len(resultados) == 0:
+        print("No se encontraron resultados validos")
+        return
+    
+    # Graficar
+    alphas, medias, stds = graficar_HN2_vs_alpha(resultados)
+    
+    # Guardar resultados en JSON
+    resultados_json = {}
+    for alpha in resultados:
+        resultados_json[str(alpha)] = {
+            "valores": resultados[alpha],
+            "media": float(np.mean(resultados[alpha])),
+            "std": float(np.std(resultados[alpha])),
+            "n": len(resultados[alpha])
+        }
+    
+    with open('predictibilidad_HN2_resultados.json', 'w') as f:
+        json.dump(resultados_json, f, indent=2)
+    
+    print("\nResultados guardados en: predictibilidad_HN2_resultados.json")
+    
+    # Imprimir resumen
+    print("\n=== RESUMEN ===")
+    print(f"{'alpha':>10} {'H/N² (media)':>15} {'std':>10} {'n_muestras':>12}")
+    print("-" * 50)
+    for i, alpha in enumerate(alphas):
+        n = len(resultados[alpha])
+        print(f"{alpha:>10.4f} {medias[i]:>15.6f} {stds[i]:>10.6f} {n:>12}")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
