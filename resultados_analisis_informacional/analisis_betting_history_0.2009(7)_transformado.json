@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "archivo": "betting_history_0.2009(7)_transformado.json",
+    "alpha": 0.200863,
+    "N": 2549,
+    "T": 10000,
+    "M": 9,
+    "workers": 12,
+    "umbral_muestreo": 500000,
+    "fecha": "2026-03-11T23:36:41.876156"
+  },
+  "volatilidad": {
+    "sigma2_N": 1.0352876794152543,
+    "sigma2_raw": 659.7370737073708,
+    "A_media": 1274.59,
+    "A_std": 25.684063152079347,
+    "eficiencia": -0.03528767941525435,
+    "N": 2549,
+    "T": 10000
+  },
+  "predictibilidad": {
+    "H_N": 2.3984804356036176e-07,
+    "n_historiales_observados": 512,
+    "total_historiales_posibles": 512,
+    "fraccion_observados": 1.0
+  },
+  "mi_victorias": {
+    "MI_media": 0.000649656361191231,
+    "MI_std": 0.0009746924167102733,
+    "MI_min": 0.0,
+    "MI_max": 0.02454615448000297,
+    "NMI_media": 0.0006498711924730532,
+    "NMI_std": 0.0009749698202989525,
+    "n_pares_calculados": 649485,
+    "total_pares": 3247426
+  },
+  "mi_acciones": {
+    "MI_media": 0.0006491091712401229,
+    "MI_std": 0.0009729215471138784,
+    "MI_min": 0.0,
+    "MI_max": 0.018168799535562163,
+    "NMI_media": 0.0006501516355387632,
+    "NMI_std": 0.0009745760725880663,
+    "n_pares_calculados": 649485,
+    "total_pares": 3247426
+  },
+  "mi_accion_estado": {
+    "MI_media": 0.6443674920400676,
+    "MI_std": 0.1347862874563922,
+    "MI_min": 0.4548698274840728,
+    "MI_max": 0.9999987787250415
+  }
+}
