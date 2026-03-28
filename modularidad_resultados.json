@@ -1,0 +1,98 @@
+[
+  {
+    "alpha": 0.2009,
+    "Q_media": 0.02072809902008066,
+    "Q_std": 0.0004701857305847406,
+    "n_comunidades_media": 5.1,
+    "n_comunidades_std": 0.5385164807134504,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 1.9922,
+    "Q_media": 0.0762594915678532,
+    "Q_std": 0.0036044299817893834,
+    "n_comunidades_media": 6.033333333333333,
+    "n_comunidades_std": 0.835995746932297,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 0.9981,
+    "Q_media": 0.03984732200827289,
+    "Q_std": 0.001398018150650637,
+    "n_comunidades_media": 5.4,
+    "n_comunidades_std": 0.4898979485566356,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 0.4995,
+    "Q_media": 0.023087730924642787,
+    "Q_std": 0.0009635571134756875,
+    "n_comunidades_media": 5.366666666666666,
+    "n_comunidades_std": 0.5467073155618908,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 0.4503,
+    "Q_media": 0.02131226447314642,
+    "Q_std": 0.0005860035564923243,
+    "n_comunidades_media": 5.233333333333333,
+    "n_comunidades_std": 0.42295258468165065,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 0.3923,
+    "Q_media": 0.01922375954089012,
+    "Q_std": 0.0004350365188396772,
+    "n_comunidades_media": 5.066666666666666,
+    "n_comunidades_std": 0.44221663871405326,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 0.3644,
+    "Q_media": 0.01822867434368358,
+    "Q_std": 0.00048421644160128206,
+    "n_comunidades_media": 5.366666666666666,
+    "n_comunidades_std": 0.5467073155618908,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 0.3402,
+    "Q_media": 0.018478812288900293,
+    "Q_std": 0.0008183135825627177,
+    "n_comunidades_media": 5.033333333333333,
+    "n_comunidades_std": 0.6046119049072353,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 0.3293,
+    "Q_media": 0.01894441733101382,
+    "Q_std": 0.0011609607411211622,
+    "n_comunidades_media": 5.166666666666667,
+    "n_comunidades_std": 0.5821416398857661,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 0.3202,
+    "Q_media": 0.019097373306209583,
+    "Q_std": 0.0014177640646561914,
+    "n_comunidades_media": 5.3,
+    "n_comunidades_std": 0.5859465277082315,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 0.2992,
+    "Q_media": 0.019684393425232406,
+    "Q_std": 0.0008073369394778603,
+    "n_comunidades_media": 5.433333333333334,
+    "n_comunidades_std": 0.5587684871413403,
+    "n_muestras": 30
+  },
+  {
+    "alpha": 0.2499,
+    "Q_media": 0.02073263039830265,
+    "Q_std": 0.0006332395237121933,
+    "n_comunidades_media": 5.166666666666667,
+    "n_comunidades_std": 0.45338235029118146,
+    "n_muestras": 30
+  }
+]
